@@ -26,6 +26,7 @@ module Vagrant
           @env[:ui].info I18n.t("vagrant.actions.vm.boot.waiting")
 
           @env[:vm].config.ssh.max_tries.to_i.times do |i|
+            @env[:vm].channel.close()
             if @env[:vm].channel.ready?
               @env[:ui].info I18n.t("vagrant.actions.vm.boot.ready")
               return true

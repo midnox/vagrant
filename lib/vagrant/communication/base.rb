@@ -17,6 +17,10 @@ module Vagrant
       def ready?
       end
 
+      # Closes the connection, if it's open
+      def close
+      end
+
       # Upload a file to the virtual machine.
       #
       # @param [String] from Path to a file to upload.

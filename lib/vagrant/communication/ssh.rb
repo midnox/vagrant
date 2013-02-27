@@ -22,6 +22,11 @@ module Vagrant
         @connection = nil
       end
 
+      def close
+        @connection.close() if @connection
+        @connection = nil
+      end
+
       def ready?
         @logger.debug("Checking whether SSH is ready...")
 
@@ -145,6 +150,7 @@ module Vagrant
           @logger.info("Connecting to SSH: #{ssh_info[:host]}:#{ssh_info[:port]}")
           connection = retryable(:tries => @vm.config.ssh.max_tries, :on => exceptions) do
             Net::SSH.start(ssh_info[:host], ssh_info[:username], opts)
+            #self
           end
         rescue Net::SSH::AuthenticationFailed
           # This happens if authentication failed. We wrap the error in our
